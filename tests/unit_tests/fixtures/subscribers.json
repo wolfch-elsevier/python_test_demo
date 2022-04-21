@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Jeffery Ayala",
+    "address": {
+      "street": "544 Mark Flat",
+      "city": "Sarahtown",
+      "state": "ME",
+      "zip": "66447"
+    },
+    "email": "jblake@example.net",
+    "home_phone": "256.415.6536x721",
+    "serial": 0
+  },
+  {
+    "name": "Timothy Brown",
+    "address": {
+      "street": "803 Roman Center",
+      "city": "Laneburgh",
+      "state": "RI",
+      "zip": "32055"
+    },
+    "email": "thomassimpson@example.com",
+    "home_phone": "575-444-7829",
+    "serial": 1
+  },
+  {
+    "name": "Reginald Miller",
+    "address": {
+      "street": "96873 Kevin Courts",
+      "city": "Paulbury",
+      "state": "NV",
+      "zip": "20748"
+    },
+    "email": "dawn83@example.org",
+    "home_phone": "8503706791",
+    "serial": 2
+  },
+  {
+    "name": "Brianna Gibson",
+    "address": {
+      "street": "1251 Frederick Common",
+      "city": "Cantrellton",
+      "state": "WY",
+      "zip": "91501"
+    },
+    "email": "hcunningham@example.net",
+    "home_phone": "117-418-6544",
+    "serial": 3
+  }
+]

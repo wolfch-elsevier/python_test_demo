@@ -1,0 +1,76 @@
+- !!python/object/apply:collections.OrderedDict
+  - - - name
+      - Jason Tate
+    - - address
+      - !!python/object/apply:collections.OrderedDict
+        - - - street
+            - 5931 Linda Shoal
+          - - city
+            - South Michael
+          - - state
+            - DE
+          - - zip
+            - '92587'
+    - - email
+      - guerreromelissa@example.org
+    - - home_phone
+      - 001-362-403-3783x96438
+    - - serial
+      - 0
+- !!python/object/apply:collections.OrderedDict
+  - - - name
+      - Marcus Martin
+    - - address
+      - !!python/object/apply:collections.OrderedDict
+        - - - street
+            - 373 Eric Coves Suite 058
+          - - city
+            - Port William
+          - - state
+            - IN
+          - - zip
+            - '40078'
+    - - email
+      - eharvey@example.com
+    - - home_phone
+      - 693-132-4400
+    - - serial
+      - 1
+- !!python/object/apply:collections.OrderedDict
+  - - - name
+      - Jose Frederick
+    - - address
+      - !!python/object/apply:collections.OrderedDict
+        - - - street
+            - 6949 Rodriguez Stream Apt. 795
+          - - city
+            - Chungshire
+          - - state
+            - KY
+          - - zip
+            - '85453'
+    - - email
+      - gharris@example.net
+    - - home_phone
+      - +1-444-261-5208
+    - - serial
+      - 2
+- !!python/object/apply:collections.OrderedDict
+  - - - name
+      - Vanessa Ramos
+    - - address
+      - !!python/object/apply:collections.OrderedDict
+        - - - street
+            - 455 Douglas Pine
+          - - city
+            - Jamesfurt
+          - - state
+            - SD
+          - - zip
+            - '73722'
+    - - email
+      - bhaynes@example.com
+    - - home_phone
+      - '7676504848'
+    - - serial
+      - 3

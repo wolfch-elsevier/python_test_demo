@@ -7,14 +7,14 @@ from pymongo import MongoClient
 
 
 class SubscriberData:
-    def __init__(self, mongo_url=None, mongo_client=None) -> None:
+    def __init__(self, mongo_url: str=None, mongo_client: MongoClient=None) -> None:
         if not mongo_url and not mongo_client:
             raise Exception("must pass either mongo_url or mongo_client instance")
         self.mclient = mongo_client if mongo_client else MongoClient(mongo_url)
         self.subscriber_db = self.mclient.subscriber_db
         self.usa = self.subscriber_db.usa
         
-    def add_subscriber(self, subscriber_geo_zone, subscriber_record):
+    def add_subscriber(self, subscriber_geo_zone: str, subscriber_record):
         return str(self.subscriber_db[subscriber_geo_zone].insert_one(subscriber_record).inserted_id)
     
     def delete_subscriber(self, subscriber_geo_zone, id):
@@ -41,4 +41,9 @@ class SubscriberData:
     def close(self):
         if self.mclient:
             self.mclient.close()
- 
+
+if __name__ == "__main__":
+    sdb = SubscriberData("mongodb://localhost:27017/")
+    
+    for record in sdb.find_all_subscribers("usa"):
+        pprint.pprint(record)

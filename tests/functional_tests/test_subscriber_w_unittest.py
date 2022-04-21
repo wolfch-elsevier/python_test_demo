@@ -5,12 +5,13 @@ import unittest
 from collections import OrderedDict
 from unittest import TestCase
 from subscriber.subscriber_data import SubscriberData
+from tests.tstextra.test_data_generator import FakeNameAddressPhoneEmailStream
 
 class SubscriberDataFunctionalTest(TestCase):
     """Sample functional test using Python's unittest framework"""
     def setUp(self) -> None:
         self.sdb = SubscriberData("mongodb://localhost:27017/")
-        self.subscriber_src = FakeNameAddressPhoneEmail()
+        self.subscriber_src = FakeNameAddressPhoneEmailStream()
         self.test_subscribers = []
         for i, subscriber in enumerate(self.subscriber_src.records()):
             self.test_subscribers.append(subscriber)

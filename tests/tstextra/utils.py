@@ -3,6 +3,7 @@ import boto3
 import base64
 import json
 import os
+import re
 import sys
 from pathlib import Path, PurePath
 from botocore.exceptions import ClientError
@@ -98,47 +99,6 @@ def find_git_rootdir():
         entries = [entry for entry in path.glob(".git")]
         path = path.parent
     return entries[0].parent if len(entries) > 0 else None
-
-
-class FakeNameAddressPhoneEmail:
-    """Generate fake name, address, phone, email, records
-    
-    Needs: pip install faker
-     
-    Sample usage:
-    subscriber_src = FakeNameAddressPhoneEmail()
-    
-    for i, subscriber in enumerate(subscriber_src.records()):
-        pprint.pprint(subscriber)
-        if i == 5:
-            break
-
-    TODO: put this into some shared, common test utility library
-    """
-    def __init__(self) -> None:
-        self.fake = Faker()
-        self.csz = re.compile(r"((?:\w+\s)*(?:\w+)),\s(\w\w)\s(\d\d\d\d\d)")
-        
-    def records(self):
-        while True:
-            record = OrderedDict()
-            record["name"] = self.fake.name()
-            strt_city_st_zip = self.fake.address()
-            parts = strt_city_st_zip.split('\n')
-            address = OrderedDict()
-            address["street"] = parts[0]
-            m = self.csz.match(parts[1])
-            if not m: 
-                sys.stderr.write(f"Can't match csz: {parts[1]}\n")
-                continue
-            address["city"] = m.groups()[0]
-            address["state"] = m.groups()[1]
-            address["zip"] = m.groups()[2]
-            record["address"] = address
-            record["email"] = self.fake.email()
-            record["home_phone"] = self.fake.phone_number()
-            yield record
-   
 
 if __name__ == "__main__":
     s = get_secret("dev/h/platform/hgraph/datadelivery/access/read-write/authlist", profile_name="hgraph_np")
