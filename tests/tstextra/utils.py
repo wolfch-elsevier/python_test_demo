@@ -1,15 +1,16 @@
-import logging
-import boto3
 import base64
 import json
+import logging
 import os
-import re
 import sys
 from pathlib import Path, PurePath
+
+import boto3
 from botocore.exceptions import ClientError
-from requests.auth import HTTPBasicAuth
+from requests.auth import AuthBase, HTTPBasicAuth
 
 LOG = logging.getLogger(__name__)
+
 
 class SecretsManagerException(Exception):
     pass
@@ -71,7 +72,8 @@ def get_secret(secret_name, region_name="us-east-1", profile_name="default"):
             raise SecretsManagerException(f"Unknown error: '{error_code_str}'") from e
     except Exception as e:
         raise e
-    
+
+
 def configure_service_auth():
     print(sys.path)
     # global API_AUTH
@@ -91,18 +93,38 @@ def configure_service_auth():
         print(api_auth)
     return api_auth
 
+
 def find_git_rootdir():
     path = Path(os.path.dirname(__file__))
     entries = []
     fsroot = PurePath("/")
-    while (path.parent != fsroot and not len(entries)):
+    while path.parent != fsroot and not len(entries):
         entries = [entry for entry in path.glob(".git")]
         path = path.parent
     return entries[0].parent if len(entries) > 0 else None
 
+
+class WPAuth(AuthBase):
+    def __init__(self, apikey):
+        self.apikey = apikey
+
+    def __eq__(self, other):
+        return self.apikey == getattr(other, "apikey", None)
+
+    def __ne__(self, other):
+        return not self == other
+
+    def __call__(self, r):
+        r.headers["Authorization"] = f"ApiKey {self.apikey}"
+        return r
+
+
 if __name__ == "__main__":
-    s = get_secret("dev/h/platform/hgraph/datadelivery/access/read-write/authlist", profile_name="hgraph_np")
+    s = get_secret(
+        "dev/h/platform/hgraph/datadelivery/access/read-write/authlist",
+        profile_name="hgraph_np",
+    )
     print(s)
-    
+
     repo_root_dir = find_git_rootdir()
     print(repo_root_dir)

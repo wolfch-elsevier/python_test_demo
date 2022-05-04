@@ -1,19 +1,18 @@
 import json
 import re
-import sys
-import yaml
 from collections import OrderedDict
+
 from faker import Faker
-from pprint import pprint
+
 
 class FakeNameAddressPhoneEmailStream:
     """Generate fake name, address, phone, email, records
-    
+
     Needs: pip install faker
-     
+
     Sample usage:
     fake_name_address_generator = FakeNameAddressPhoneEmail()
-    
+
     for i, subscriber in enumerate(fake_name_address_generator.records()):
         pprint.pprint(subscriber)
         if i == 5:  # generate 5 sample records
@@ -24,7 +23,7 @@ class FakeNameAddressPhoneEmailStream:
     def __init__(self) -> None:
         self.fake = Faker()
         self.csz = re.compile(r"((?:\w+\s)*(?:\w+)),\s(\w\w)\s(\d\d\d\d\d)")
-        
+
     def records(self) -> dict:
         while True:
             record = OrderedDict()
@@ -44,11 +43,13 @@ class FakeNameAddressPhoneEmailStream:
             record["email"] = self.fake.email()
             record["home_phone"] = self.fake.phone_number()
             yield record  # use generator pattern for "infinite" stream of records
-            
+
+
 class JSONSerializer:
     def __init__(self, record_src, compact_fmt=True) -> None:
         pass
-            
+
+
 if __name__ == "__main__":
     fake_name_address_generator = FakeNameAddressPhoneEmailStream()
     records = []
@@ -58,7 +59,6 @@ if __name__ == "__main__":
         records.append(record)
         if i == 3:
             break
-    #with open("fake_addresses.yaml", "w") as fh:
-    #    yaml.dump(records, fh)
+    # with open("fake_addresses.yaml", "w") as fh:
+    #     yaml.dump(records, fh)
     print(json.dumps(records, sort_keys=False, indent=2))
-   

@@ -4,6 +4,5 @@ def test_subscriber_collection(mongodb):
     print(cols)
     assert "subscribers" in cols
     record = mongodb.subscribers.find_one({'name': 'Reginald Miller'})
-    assert record != None
+    assert record is not None
     print(record)
-    
